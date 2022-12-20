@@ -271,8 +271,8 @@ if whichq chezmoi; then
 	alias-wrap chezmoi "-v" 'cm'
 
 	# chezmoi -> cheznous for share
+	CHEZNOUS_DEST="$HOME/apps/cheznous"
 	CHEZNOUS_CONFIG="$HOME/.config/cheznous/chezmoi.toml"
-	CHEZNOUS_DEST="$HOME/apps/cheznous/"
 	alias-wrap \
 		chezmoi "-v --config '$CHEZNOUS_CONFIG' --destination '$CHEZNOUS_DEST'" \
 		cheznous

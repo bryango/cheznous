@@ -1,0 +1,9 @@
+[Unit]
+Description=mailnag daemon
+
+[Service]
+ExecStart=mailnag --quiet
+
+# [Install]
+# WantedBy=unlock.target
+# # manually restarted by `unlock-actions.service`

@@ -1,0 +1,16 @@
+#!/bin/bash
+# mailnag service via systemd
+
+if [[ $# -ne 0 ]]; then
+  exec /usr/bin/mailnag "$@"
+fi
+
+if systemctl --user cat mailnag.service &>/dev/null;
+then : ; else
+  exec /usr/bin/mailnag "$@"
+fi
+
+>&2 echo "### starting systemd mailnag.service"
+systemctl --user --no-block --quiet restart mailnag.service
+
+exec journalctl --user-unit=mailnag.service --follow --since=now --output=cat

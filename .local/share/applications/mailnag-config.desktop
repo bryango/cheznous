@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Mailnag
+Comment=An extensible mail notification daemon
+Keywords=mail;notify;notification;config;settings;preferences;
+Exec=mailnag
+Icon=mailnag
+Type=Application
+Categories=Network;Email;
+X-GNOME-UsesNotifications=true
+
+Actions=Configuration;
+
+[Desktop Action Configuration]
+Name=Configuration
+Exec=/usr/bin/mailnag-config
+Terminal=false
+StartupNotify=false
+X-AppStream-Ignore=true

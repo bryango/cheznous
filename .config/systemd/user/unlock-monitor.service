@@ -1,0 +1,10 @@
+[Unit]
+Description=unlock event monitor
+
+[Service]
+ExecStart=%h/apps/utils/unlock-monitor/master.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

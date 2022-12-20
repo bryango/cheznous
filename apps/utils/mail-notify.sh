@@ -6,15 +6,21 @@ account=$2
 sender=$3
 subject=$4
 
-code=$(
+# https://wiki.archlinux.org/title/Dunst#Dunstify
+# dunstify --help
+response=$(
 	dunstify "$account" "[+$count] <i>$sender</i>: <b>$subject</b>" \
 		--icon=mail-message-new \
 		--action='2,Browse' \
 		--hints=int:transient:1
 )
+if [[ $response -ne 2 ]]; then
+	exit
+fi
 
 if [[ $account == http* ]]; then
-	exec xdg-open "$account"
+	xdg-open "$account" &>/dev/null & disown
+	exit
 fi
 
 server=${account##*@}
@@ -23,6 +29,5 @@ if [[ $server != *mail* ]]; then
 fi
 server="https://$server"
 
-if [[ $code -eq 2 ]]; then
-	exec xdg-open "$server"
-fi
+exec xdg-open "$server" &>/dev/null & disown
+exit

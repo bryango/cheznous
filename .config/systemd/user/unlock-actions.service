@@ -1,0 +1,8 @@
+[Unit]
+Description=user actions on screen unlock
+
+[Service]
+ExecStart=%h/apps/unlock.sh
+
+[Install]
+WantedBy=unlock.target

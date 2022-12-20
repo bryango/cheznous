@@ -1,0 +1,7 @@
+[Unit]
+Description=screen unlocked
+Requires=unlock-monitor.service
+After=unlock-monitor.service
+# manually triggered by `unlock-monitor.service`
+DefaultDependencies=false
+StopWhenUnneeded=true
