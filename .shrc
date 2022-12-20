@@ -1,0 +1,334 @@
+#!/bin/bash
+# shellcheck shell=bash disable=SC1090,SC1091,SC2015
+# For bash AND ZSH
+
+######################
+###### USER MOD ######
+######################
+
+###### 1. UNIVERSAL HELPERS ######
+
+# no ctrl-s flow control
+stty -ixon
+
+[[ -r "$HOME/.bash_utils" ]] \
+	&& source "$HOME/.bash_utils" \
+	|| >&2 echo "### require .bash_utils, not found"
+
+export EDITOR=/usr/bin/nvim
+export PAGER="less -RF"
+
+# ls aliases
+#alias ll='ls -alF'
+alias ll='ls -alhF --group-directories-first'
+alias la='ls -A'
+alias l='ls -CF'
+# interactive (safe) operations
+alias rm='rm -iv'
+alias cp='cp -i'
+alias mv='mv -i'
+# 'vi' points to vim
+alias vi=nvim
+# expand aliases after sudo
+alias sudo='sudo '
+
+# Chinese & UTF8
+alias env-zh='env LANG=zh_CN.UTF-8'
+alias fc-list-zh="fc-list :lang=zh"
+[[ -n $LANG ]] && export LANG || export LANG=en_US.UTF-8
+# read line
+# shellcheck disable=2154
+alias whilereadline='while IFS='"''"' read -r line || [[ -n "$line" ]]'
+# ssh debug timestamp
+alias ts-ssh-debug="stdbuf -oL sed -E -e 's/debug1: //g' | ts '[%Y-%m-%d %H:%M:%S]'"
+# ipv6
+function sysctl-disable-ipv6 {
+	[[ $1 -eq 0 ]] || [[ $1 -eq 1 ]] \
+		&& sudo sysctl -w net.ipv6.conf.all.disable_ipv6="$1"
+}
+# XDG_* from systemd-logind
+# <https://github.com/systemd/systemd/blob/main/src/login/loginctl.c>
+#  > show_session
+[[ -n $XDG_SESSION_ID ]] || XDG_SESSION_ID=$( \
+	busctl get-property \
+		org.freedesktop.login1 \
+		/org/freedesktop/login1/session/auto \
+		org.freedesktop.login1.Session \
+		Id \
+	| cut -d' ' -f2 | xargs
+) && export XDG_SESSION_ID
+
+# path remover
+function pathrm {
+	[[ "$(echo "$PATH" | wc -l)" -eq 1 ]] && [[ $# -eq 1 ]] && [[ "$1" != '' ]] \
+		&& export PATH_BACKUP=$PATH \
+		&& PATH=$(
+			p=$(echo "$PATH" \
+				| tr ':' '\n' \
+				| grep -v "$1" \
+				| tr '\n' ':'
+			); echo "${p%:}") \
+		&& export PATH \
+		&& pathp \
+		|| ( echo "# PATH Un-change" && return 1 )
+}
+# archive extractor
+function ex {
+	if [[ -f "$1" ]] ; then
+		case "$1" in
+			*.tar.bz2)   tar xjf "$1"    ;;
+			*.tar.gz)    tar xzf "$1"    ;;
+			*.bz2)       bunzip2 "$1"    ;;
+			*.rar)       unrar x "$1"    ;;
+			*.gz)        gunzip "$1"     ;;
+			*.tar)       tar xf "$1"     ;;
+			*.tbz2)      tar xjf "$1"    ;;
+			*.tgz)       tar xzf "$1"    ;;
+			*.zip)       unzip "$1"      ;;
+			*.Z)         uncompress "$1" ;;
+			*.7z)        7z x "$1"       ;;
+			*)           echo "# '$1' cannot be extracted via ex()" ;;
+		esac
+	else
+		echo "# '$1' is not a valid file"
+		return 1
+	fi
+}
+## file:// decode
+#function uridecode {
+#	: "${*//+/ }"
+#	echo -e "${_//%/\\x}" \
+#		| sed -e 's/file:\/\///g'
+#}
+# vi history
+function vi-history {
+	local history_path
+	if [[ -n "$ZSH_VERSION" ]] && [[ -r "$HOME/.zsh_history" ]]; then
+		history_path="$HOME/.zsh_history"
+	elif [[ -n "$BASH_VERSION" ]] && [[ -r "$HOME/.bash_history" ]]; then
+		history_path="$HOME/.bash_history"
+	fi
+	vi '+exe "normal G\<Up>"' "$history_path"
+}
+
+# legacy shadowsocks server
+[[ -r /etc/init.d/shadowsocks ]] && \
+	alias shadowsocks='/etc/init.d/shadowsocks'
+# SSH info
+if [[ -n $SSH_CONNECTION ]] || [[ -n $SSH_CLIENT ]] || [[ -n $SSH_TTY ]]; then
+	# auth agent
+	[[ -n $SSH_AUTH_SOCK ]] && \
+		>&2 echo "# SSH_AUTH_SOCK=$SSH_AUTH_SOCK" || true
+fi
+# proxy info
+if proxy_envs=$(env | grep proxy); then
+	>&2 sed -E 's/^/# /g' <<< "$proxy_envs"
+fi
+
+
+###### 2. LOCAL HELPERS ######
+
+# update env
+[[ -z $PROFILE_SOURCED ]] && source-try "$HOME/.profile"
+#pathq "$HOME/bin" || source-try "$HOME/.profile"
+
+# shutdown check
+if whichq shutdown-checklist; then
+	for cmd in 'shutdown' 'reboot' 'poweroff'; do
+		# shellcheck disable=SC2139
+		alias $cmd="shutdown-checklist $cmd"
+	done
+fi
+
+# git-secrets
+GIT_SECRETS_DIR="$HOME/apps/git-secrets"
+GIT_SECRETS_BIN="$GIT_SECRETS_DIR/bin"
+if [ -d "$GIT_SECRETS_BIN" ]; then
+	export GIT_SECRETS_BIN
+	pathq "$GIT_SECRETS_BIN" || export PATH="$PATH:$GIT_SECRETS_BIN"
+fi
+# MANPATH=$(tr -s ':' <<< "$MANPATH:")
+# export MANPATH="$MANPATH""$GIT_SECRETS_DIR/share/man:"
+
+
+###### 3. PRIVATE DATA ######
+
+source-try "$HOME/.secrets"
+source-try "$HOME/.tokens"
+
+
+###### 4. USER-FRIENDLY ######
+
+# wrap commands
+function function-wrap {  # cmd, pre, post, name
+	if [[ $# -lt 3 ]]; then
+		echo "# Not enough arguments!"
+		return 1
+	else
+		local cmd="$1" pre="$2" post="$3" name fullcmd
+		[[ -n "$4" ]] \
+			&& name="$4" \
+			|| name="$cmd"
+		fullcmd=$(command -v "$cmd") \
+			&& eval "function $name {
+				$fullcmd $pre \"\$@\" $post
+			}" \
+			|| true  # Don't worry, $cmd not installed
+	fi
+}
+function alias-wrap {  # cmd, opt, name
+	if [[ $# -lt 2 ]]; then
+		echo "# Not enough arguments!"
+		return 1
+	else
+		local cmd="$1" opt="$2" name
+		[[ -n "$3" ]] \
+			&& name="$3" \
+			|| name="$cmd"
+		whichq "$cmd" \
+			&& eval "alias $name='$cmd $opt'" \
+			|| true  # Don't worry, $cmd not installed
+	fi
+}
+
+# silence output
+disown_detach='&>/dev/null & disown'
+noisy_apps=(
+	'gedit'
+	'nm-connection-editor'
+	'nautilus'
+)
+for app in "${noisy_apps[@]}"; do
+	function-wrap "$app" '' "$disown_detach"
+done
+unset app
+
+function-wrap libreoffice '--view' "$disown_detach" 'libreoffice-view'
+function-wrap shellcheck '--color=always' '| less -RF'
+function-wrap pstree '-plUt' '| less -RFS'
+# shellcheck disable=SC2016
+function-wrap pgrep '-U "$(whoami)" sshd' '| grep -v $$ | xargs -r ps ww' 'pgrep-sshd'
+# shellcheck disable=SC2016
+alias-wrap x0vncserver '--PasswordFile="$HOME/.vnc/passwd"'
+# shellcheck disable=SC2016
+alias-wrap vncserver '--PasswordFile="$HOME/.vnc/passwd"'
+alias-wrap gitkraken "--path=\"\$PWD\" $disown_detach"
+alias-wrap nautilus "\"\$PWD\" $disown_detach" 'nautilus-here'
+alias-wrap atom "\"\$PWD\"" 'atom-here'
+alias-wrap glances "--process-short-name"
+alias-wrap polipo "socksParentProxy=localhost:1080" 'polipo-channel-socks'
+alias-wrap pygmentize "-f terminal256 -O style=native -g" 'pcat'
+alias-wrap xset '-dpms' 'xset-dpms-off'
+alias-wrap stat '-c " | %a | %A | %N" *' 'stat-ls'
+alias-wrap xxd "-p /sys/firmware/efi/efivars/KBDBacklitLvl*" 'xxd-kbdbacklight'
+alias-wrap vlc "--no-one-instance $disown_detach"
+alias-wrap pkill ".exe; pkill wineserver.real" 'pkill-wine'
+
+
+# pacman alias
+if whichq pacman; then
+	alias pacman-clean='sudo pacman -Scc'
+	alias pacman-autoclean='sudo pacman -Sc'
+	alias pacman-rmdb='rm /var/lib/pacman/sync/*'
+	alias pacdiff='DIFFSEARCHPATH="/boot /etc /usr" EDITOR="$EDITOR -d" DIFFPROG="sudoedit" pacdiff'
+	function pacman-autoremove {
+		if pacman -Qdtq &>/dev/null; then
+			# shellcheck disable=2046
+			sudo pacman -R $(pacman -Qtdq)  # more: -Rs
+		else
+			echo "# No orphans! Nice!"
+		fi
+	}
+	[[ $- == *i* ]] && function which {
+		if [[ -n "$ZSH_VERSION" ]]; then
+			pacman -Qo "$(builtin which "$1")" 2>/dev/null \
+				|| builtin which "$1"
+		elif [[ -n "$BASH_VERSION" ]]; then
+			pacman -Qo "$(command -v "$1" 2>/dev/null)" 2>/dev/null \
+				|| command -v "$1"
+		fi
+	}
+	whichq yay && alias yay="yay"
+fi
+
+whichq lazygit && \
+	function git { [[ $# -eq 0 ]] && lazygit || /usr/bin/git "$@"; }
+# whichq nethogs && \
+#	alias nethog='sudo nethogs'  # prefer setcap
+whichq powertop && \
+	alias powertop='sudo powertop'
+whichq bup && \
+	alias bup="bup"
+whichq proxychains && whichq tldr && \
+	alias tldr="proxychains tldr"
+whichq fuck && [[ $- == *i* ]] && \
+	eval "$(thefuck --alias)"
+whichq setfacl && [[ -e /dev/video0 ]] && \
+	alias setfacl-block-video="sudo setfacl -b /dev/video0"
+
+if whichq chezmoi; then
+
+	alias-wrap chezmoi "-v" 'cm'
+
+	# chezmoi -> cheznous for share
+	CHEZNOUS_CONFIG="$HOME/.config/cheznous/chezmoi.toml"
+	CHEZNOUS_DEST="$HOME/apps/cheznous/"
+	alias-wrap \
+		chezmoi "-v --config '$CHEZNOUS_CONFIG' --destination '$CHEZNOUS_DEST'" \
+		cheznous
+
+elif whichq yadm; then
+	alias dm=yadm
+	alias dm-nonbare=yadm-nonbare
+	# shellcheck disable=2139
+	alias dm-repo='cd $(yadm introspect repo)'
+fi
+
+# add kite files after its auto update
+alias kite-cleanup="git add --patch '*kite*'"
+
+
+###### 5. PYTHON  ######
+
+[[ -n $ZSH_VERSION ]] \
+	&& _shell=zsh \
+	|| _shell=bash
+
+### from: $CONDA_ROOT/bin/conda init --dry-run --verbose zsh
+[[ -n $CONDA_ROOT ]] || CONDA_ROOT=/opt/anaconda
+[[ -r $CONDA_ROOT ]] \
+&& conda-setup () {
+	__conda_setup="$("$CONDA_ROOT/bin/conda" "shell.$_shell" 'hook' 2> /dev/null)"
+	# shellcheck disable=2181
+	if [ $? -eq 0 ]; then
+		eval "$__conda_setup"
+	else
+		if [ -f "$CONDA_ROOT/etc/profile.d/conda.sh" ]; then
+			. "$CONDA_ROOT/etc/profile.d/conda.sh"
+		else
+			export PATH="$CONDA_ROOT/bin:$PATH"
+		fi
+	fi
+	unset __conda_setup
+}
+
+### the conda base env is not activated by default
+# conda config --set auto_activate_base False
+
+# alias
+whichq jupyter && \
+	alias nb="jupyter notebook"
+
+
+###### AT LAST ######
+
+# PATH: ~/bin/ always on top
+export PATH="$HOME/.local/bin:${PATH/$HOME\/.local\/bin:/}"
+export PATH="$HOME/bin:${PATH/$HOME\/bin:/}"
+
+# tilix: KEEP AT END OF FILE
+if [[ "$TILIX_ID" ]] || [[ "$VTE_VERSION" ]]; then
+	source-try /etc/profile.d/vte.sh
+fi
+
+# vim: set noexpandtab:
