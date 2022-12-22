@@ -1,0 +1,10 @@
+#!/bin/bash
+# nutstore wrapper
+
+export GTK_THEME=Adw-Eta-Matcha
+
+# exec nohup /usr/bin/nutstore >/dev/null 2>&1 &
+## see /bin/nutstore
+## ... /opt/nutstore/gnome-config/autostart/nutstore-daemon.desktop
+
+exec nohup /opt/nutstore/bin/nutstore-pydaemon.py >/dev/null 2>&1 &

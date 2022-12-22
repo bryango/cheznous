@@ -1,0 +1,1 @@
+../../../../templates/texplates/release/texplates.cwl

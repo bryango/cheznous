@@ -268,7 +268,7 @@ whichq setfacl && [[ -e /dev/video0 ]] && \
 
 if whichq chezmoi; then
 
-	alias-wrap chezmoi "-v" 'cm'
+	alias-wrap chezmoi "-v --interactive" 'cm'
 
 	# chezmoi -> cheznous for share
 	CHEZNOUS_DEST="$HOME/apps/cheznous"

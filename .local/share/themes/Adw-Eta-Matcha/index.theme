@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+Type=X-GNOME-Metatheme
+Name=Adw-Eta-Matcha
+GtkTheme=Adw-Eta-Matcha
+Comment=A mix of Adapta, Matcha & Adw themes
+MetacityTheme=Adapta
+IconTheme=Adwaita
+CursorTheme=Adwaita
+CursorSize=24
+ButtonLayout=:close
+Encoding=UTF-8
