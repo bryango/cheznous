@@ -17,6 +17,7 @@ stty -ixon
 
 export EDITOR=/usr/bin/nvim
 export PAGER="less -RF"
+export SYSTEMD_LESS="RF"
 
 # ls aliases
 #alias ll='ls -alF'
@@ -274,7 +275,7 @@ if whichq chezmoi; then
 	CHEZNOUS_DEST="$HOME/apps/cheznous"
 	CHEZNOUS_CONFIG="$HOME/.config/cheznous/chezmoi.toml"
 	alias-wrap \
-		chezmoi "-v --config '$CHEZNOUS_CONFIG' --destination '$CHEZNOUS_DEST'" \
+		chezmoi "-v --config '$CHEZNOUS_CONFIG' --destination '$CHEZNOUS_DEST' --interactive" \
 		cheznous
 
 elif whichq yadm; then
