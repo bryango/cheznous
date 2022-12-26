@@ -1,0 +1,5 @@
+# allow override
+set bind-tty-special-chars Off
+
+# better ctrl-w
+Control-w: backward-kill-word

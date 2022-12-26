@@ -1,0 +1,11 @@
+[include]
+	path = .gitglobal
+[http]
+	postBuffer = 1048576000
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RF
+[credential]
+	helper = store
+; [mergetool "gitblade"]
+; 	cmd = \"/usr/lib/gitblade/gitblade\" -c \"\"
+; 	trustExitCode = true
