@@ -2,4 +2,4 @@
 ignore = F403,F405,W503,E201,E202,E266
 per-file-ignores =
   # space between operators for alignment
-  xelatex: E221
+  xelatex-tectonic: E221

@@ -28,6 +28,7 @@ arg_opts = { 'default': True, 'action': 'store_false' }
 aux     = add_arg('-no-aux',   dest='aux',     **arg_opts)  # noqa: E241
 logs    = add_arg('-no-log',   dest='logs',    **arg_opts)  # noqa: E241
 chatter = add_arg('-no-print', dest='chatter', **arg_opts)  # noqa: E241
+# TODO: shell-escape-cwd
 
 add_arg = parser.add_argument_group('OPTIONS').add_argument
 synctex   = add_arg('-synctex', type=int, default=15)
@@ -37,6 +38,7 @@ outdir    = add_arg('-output-directory')
 
 add_arg = parser.add_argument_group('IGNORED').add_argument
 add_arg('-interaction')
+add_arg('-recorder', action='store_true')
 
 # parse and prepare for translation
 (kwargs, args) = parser.parse_known_args()
