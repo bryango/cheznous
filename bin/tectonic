@@ -1,0 +1,10 @@
+#!/bin/bash
+# tectonic wrapper
+
+## alternative - slow after gc:
+#! /usr/bin/env nix-shell
+#! nix-shell -v -i bash -p biber
+#! nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/9fcb1258a85c1281e282ca472d5cd468a391c631.tar.gz
+
+export PATH="/nix/var/nix/profiles/per-user/$USER/biber-2.17/bin:$PATH"
+exec /usr/bin/tectonic "$@"

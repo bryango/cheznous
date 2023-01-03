@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Firewall Applet
+Icon=firewall-applet
+Categories=System;Settings;Security;
+Exec=/usr/bin/firewall-applet
+Type=Application
+StartupNotify=true
+Terminal=false
+X-GNOME-Autostart-enabled=false
+X-GNOME-HiddenUnderSystemd=true
+Hidden=true

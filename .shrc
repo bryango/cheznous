@@ -267,6 +267,7 @@ whichq fuck && [[ $- == *i* ]] && \
 whichq setfacl && [[ -e /dev/video0 ]] && \
 	alias setfacl-block-video="sudo setfacl -b /dev/video0"
 
+## dotfiles
 if whichq chezmoi; then
 
 	alias-wrap chezmoi "-v --interactive" 'cm'
@@ -285,9 +286,12 @@ elif whichq yadm; then
 	alias dm-repo='cd $(yadm introspect repo)'
 fi
 
-# add kite files after its auto update
-alias kite-cleanup="git add --patch '*kite*'"
-
+## nix
+if whichq nix-env; then
+	alias-wrap nix-env -v
+	alias-wrap nix-channel -v
+	alias-wrap nix-store -v
+fi
 
 ###### 5. PYTHON  ######
 
