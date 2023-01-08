@@ -1,0 +1,13 @@
+#!/bin/bash
+# merge dicts
+
+merged=$(cat \
+    ~/.config/texstudio/texstudioen_US.ign \
+    ~/.config/enchant/en_US.dic \
+    | tail +2 \
+    | sort -u
+)
+
+echo "$merged"
+echo "$merged" > ~/.config/enchant/en_US.dic
+echo "$merged" > ~/.config/texstudio/texstudioen_US.ign

@@ -34,6 +34,12 @@ export PATH="$HOME/apps/miktex/bin:$PATH"
 # export MIKTEX_VIEW_html="google-chrome %f"
 # export MIKTEX_VIEW_txt="mousepad %f"
 
+### rustup mirrors
+## ... https://mirrors.tuna.tsinghua.edu.cn/help/rustup/
+## ... https://rust-lang.github.io/rustup/environment-variables.html
+export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+
 # ### Android
 # export ANDROID_SDK_ROOT=$HOME/apps/Android/SDK
 # export PATH=$PATH:$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools

@@ -168,6 +168,9 @@ BULLETTRAIN_PROMPT_ORDER=(
   hg
   cmd_exec_time
 )
+
+prompt_nix_shell_setup
+
 export BULLETTRAIN_CONTEXT_DEFAULT_USER=bryan
 [[ -n $SSH_CONNECTION ]] || [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]] && \
   export BULLETTRAIN_IS_SSH_CLIENT=true
