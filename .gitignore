@@ -1,3 +1,4 @@
 # /.gitignore
 
 /apps/startup.sh
+/.zsh_profiles

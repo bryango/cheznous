@@ -1,0 +1,43 @@
+# git ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+
+# Ignore everything ...
+/*
+# ... avoid `*`, it works recursively!
+# ... except:
+
+!/etc/
+/etc/*
+
+!/etc/vnstat.conf
+
+!/etc/pacman.d/
+/etc/pacman.d/*
+!/etc/pacman.d/hooks
+
+!/etc/audit/
+/etc/audit/*
+!/etc/audit/rules.d/
+
+!/etc/resolv.conf
+
+!/etc/firewalld/
+/etc/firewalld/**/*.old
+# permission denied:
+/etc/firewalld/firewalld.conf
+
+!/etc/nix
+
+!/etc/systemd/
+/etc/systemd/*
+!/etc/systemd/system/
+/etc/systemd/system/*/
+!/etc/systemd/system/*.d
+!/etc/systemd/system/timers.target.wants/
+
+!/etc/default/
+/etc/default/useradd
