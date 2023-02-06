@@ -17,16 +17,19 @@ fi
 sudo mount --mkdir "$MNT_BTRSYSTEM"
 
 # sudo --reset-timestamp: ask for password confirmation
-for subvol in root home; do
+for subvol in root #home
+do
     # readwrite
     sudo --reset-timestamp \
-        btrfs subvolume snapshot "$MNT_BTRSYSTEM"/{@"$subvol",@snapshots/"$subvol"-"$name"}
+        btrfs subvolume snapshot -r "$MNT_BTRSYSTEM"/{@"$subvol",@snapshots/"$subvol"-"$name"}
         # `-r` flag for readonly
 done
 
-# cleanup
-target="$MNT_BTRSYSTEM"/@snapshots/root-"$name"
-{
-    cd "$target" || exit 1
-    sudo --reset-timestamp /bin/rm -rI "$target"/opt/{anaconda,Mathematica}
-}
+# # cleanup (legacy, now converted to subvolume)
+# target="$MNT_BTRSYSTEM"/@snapshots/root-"$name"
+# {
+#     cd "$target" || exit 1
+#     sudo --reset-timestamp /bin/rm -rI "$target"/opt/{anaconda,Mathematica}
+#     sudo --reset-timestamp \
+#         btrfs property set "$target" ro true
+# }

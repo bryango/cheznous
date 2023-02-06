@@ -1,0 +1,25 @@
+#!/bin/bash
+# use aria2 to update pacman cache
+
+shopt -s nullglob
+
+CACHE_DIR=/var/cache/pacman/pkg
+PARTIALS_DIR=$CACHE_DIR/../aria2
+
+cd "$CACHE_DIR" || exit 1
+
+aria2_partials=(*.aria2)
+aria2_partials=("${aria2_partials[@]}" "${aria2_partials[@]%.aria2}")
+
+echo "# moving partials to '$PARTIALS_DIR'"
+[[ -n ${aria2_partials[*]} ]] && sudo mv -iv "${aria2_partials[@]}" "$PARTIALS_DIR"
+
+echo "# syncing update urls ..."
+pacurls=$(pacman -Supq)
+
+echo "# restoring partials to '$PARTIALS_DIR'"
+cd "$PARTIALS_DIR" || exit 1
+[[ -n ${aria2_partials[*]} ]] && sudo mv -iv "${aria2_partials[@]}" "$CACHE_DIR"
+cd "$CACHE_DIR" || exit 1
+
+grep -v "file://" <<< "$pacurls" | sudo aria2c -d "$CACHE_DIR" -i -
