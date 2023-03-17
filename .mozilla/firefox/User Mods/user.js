@@ -4,6 +4,7 @@ user_pref("browser.download.useDownloadDir", true);
 user_pref("browser.tabs.closeWindowWithLastTab", false);
 user_pref("services.sync.prefs.sync.browser.uiCustomization.state", true);
 user_pref("dom.security.https_first", true);
+user_pref("layout.css.overflow-overlay.enabled", true); // `overflow: overlay` shim
 
 // //// <https://wiki.archlinux.org/title/Firefox/Tweaks#Jerky_or_choppy_scrolling>
 // user_pref("mousewheel.min_line_scroll_amount", 40);

@@ -10,7 +10,6 @@ export OPENCV_LOG_LEVEL=ERROR
 ### WARNING: this may kill gnome!
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
-export CONDA_ROOT=/opt/anaconda
 export ELECTRON_TRASH=gio
 
 # hunspell

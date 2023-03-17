@@ -288,8 +288,9 @@ ptyless() {
 # Kill word
 export WORDCHARS='|'
 
-# Source autojump
-source-try /etc/profile.d/autojump.zsh
-
 autoload -Uz compinit
 compinit
+
+# zoxide, after compinit
+command -v zoxide &>/dev/null \
+&& eval "$(zoxide init --cmd j zsh)"

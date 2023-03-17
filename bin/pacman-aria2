@@ -17,7 +17,7 @@ echo "# moving partials to '$PARTIALS_DIR'"
 echo "# syncing update urls ..."
 pacurls=$(pacman -Supq)
 
-echo "# restoring partials to '$PARTIALS_DIR'"
+echo "# restoring partials from '$PARTIALS_DIR'"
 cd "$PARTIALS_DIR" || exit 1
 [[ -n ${aria2_partials[*]} ]] && sudo mv -iv "${aria2_partials[@]}" "$CACHE_DIR"
 cd "$CACHE_DIR" || exit 1

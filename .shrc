@@ -300,13 +300,16 @@ fi
 	|| _shell=bash
 
 ### from: $CONDA_ROOT/bin/conda init --dry-run --verbose zsh
-[[ -n $CONDA_ROOT ]] || CONDA_ROOT=/opt/anaconda
+
+CONDA_ROOT=$HOME/apps/mambaforge
+
 [[ -r $CONDA_ROOT ]] \
+&& export CONDA_ROOT \
 && conda-setup () {
 	__conda_setup="$("$CONDA_ROOT/bin/conda" "shell.$_shell" 'hook' 2> /dev/null)"
 	# shellcheck disable=2181
 	if [ $? -eq 0 ]; then
-		eval "$__conda_setup"
+		eval "$__conda_setup"  # `auto_activate_base` may apply
 	else
 		if [ -f "$CONDA_ROOT/etc/profile.d/conda.sh" ]; then
 			. "$CONDA_ROOT/etc/profile.d/conda.sh"
@@ -315,7 +318,16 @@ fi
 		fi
 	fi
 	unset __conda_setup
+
+	if [ -f "$CONDA_ROOT/etc/profile.d/mamba.sh" ]; then
+		. "$CONDA_ROOT/etc/profile.d/mamba.sh"
+	fi
+
+	if [[ $# -gt 0 ]]; then
+		conda activate "$@"
+	fi
 }
+
 
 ### the conda base env is not activated by default
 # conda config --set auto_activate_base False
