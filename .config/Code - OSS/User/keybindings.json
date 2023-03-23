@@ -72,19 +72,34 @@
         "command": "workbench.action.toggleDevTools"
     },
     {
-        "key": "alt+a",
-        "command": "git.stageSelectedRanges",
-        "when": "isInDiffEditor"
-    },
-    {
         "key": "alt+up",
         "command": "workbench.action.compareEditor.previousChange",
         "when": "textCompareEditorVisible"
     },
     {
+        "key": "alt+up",
+        "command": "-editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+up",
+        "command": "editor.action.dirtydiff.previous",
+        "when": "editorTextFocus && !textCompareEditorActive"
+    },
+    {
         "key": "alt+down",
         "command": "workbench.action.compareEditor.nextChange",
         "when": "textCompareEditorVisible"
+    },
+    {
+        "key": "alt+down",
+        "command": "-editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+down",
+        "command": "editor.action.dirtydiff.next",
+        "when": "editorTextFocus && !textCompareEditorActive"
     },
     {
         "key": "alt+j",
@@ -101,4 +116,13 @@
         "command": "markdown-preview-enhanced.openPreviewToTheSide",
         "when": "editorLangId == 'markdown'"
     },
+    {
+        "key": "alt+a",
+        "command": "git.stageSelectedRanges",
+        "when": "isInDiffEditor"
+    },
+    // { // bug: https://github.com/microsoft/vscode/issues/62534
+    //     "key": "alt+a",
+    //     "command": "git.stageChange"
+    // },
 ]

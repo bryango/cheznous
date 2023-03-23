@@ -10,6 +10,7 @@ export OPENCV_LOG_LEVEL=ERROR
 ### WARNING: this may kill gnome!
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
+CONDA_ROOT=$HOME/apps/mambaforge
 export ELECTRON_TRASH=gio
 
 # hunspell
@@ -72,9 +73,13 @@ export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 # fi
 
 ### nix binaries
-export PATH="$HOME/.nix-profile/bin:$PATH"
+# export PATH="$HOME/.nix-profile/bin:$PATH"  ### /etc/profile.d/nix-daemon.sh
 ###### WARNING: this may kill gnome
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+
+### conda envs
+###### WARNING: this may kill gnome
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}:$CONDA_ROOT/share:$CONDA_ROOT/envs/cadabra2/share"
 
 ### user binaries
 export PATH="$HOME/bin:$PATH"

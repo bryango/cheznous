@@ -214,7 +214,7 @@ alias-wrap x0vncserver '--PasswordFile="$HOME/.vnc/passwd"'
 # shellcheck disable=SC2016
 alias-wrap vncserver '--PasswordFile="$HOME/.vnc/passwd"'
 alias-wrap gitkraken "--path=\"\$PWD\" $disown_detach"
-alias-wrap nautilus "\"\$PWD\" $disown_detach" 'nautilus-here'
+# alias-wrap nautilus "\"\$PWD\" $disown_detach" 'nautilus-here'
 alias-wrap atom "\"\$PWD\"" 'atom-here'
 alias-wrap glances "--process-short-name"
 alias-wrap polipo "socksParentProxy=localhost:1080" 'polipo-channel-socks'
@@ -325,6 +325,10 @@ CONDA_ROOT=$HOME/apps/mambaforge
 
 	if [[ $# -gt 0 ]]; then
 		conda activate "$@"
+	fi
+
+	if [[ $_shell == "zsh" ]]; then
+		compdef mamba=conda
 	fi
 }
 

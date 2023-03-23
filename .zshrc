@@ -294,3 +294,9 @@ compinit
 # zoxide, after compinit
 command -v zoxide &>/dev/null \
 && eval "$(zoxide init --cmd j zsh)"
+
+# pipx
+autoload -U bashcompinit
+bashcompinit
+eval "$(register-python-argcomplete pipx)"
+
