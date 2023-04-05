@@ -34,6 +34,7 @@
 
 !/etc/systemd/
 /etc/systemd/*
+!/etc/systemd/*.d
 !/etc/systemd/system/
 /etc/systemd/system/*/
 !/etc/systemd/system/*.d

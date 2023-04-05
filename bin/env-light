@@ -4,6 +4,7 @@
 # export GTK_THEME=Adapta-Eta-Maia:light
 # export GTK_THEME=Adw-Nokto-Eta-Matcha:light
 export GTK_THEME=Adw-Eta-Matcha
+unset QT_QPA_PLATFORMTHEME
 
 [[ -z $XDG_DATA_DIRS ]] && XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
 export XDG_DATA_DIRS="$HOME/.local/share/xdg-data-light/:$XDG_DATA_DIRS"
