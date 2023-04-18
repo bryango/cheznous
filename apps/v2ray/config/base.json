@@ -36,6 +36,7 @@
             "tag": "dns-in",
             "protocol": "dokodemo-door",
             "settings": {
+                "address": "127.0.0.1",
                 "network": "tcp,udp",
                 "timeout": 0
             }

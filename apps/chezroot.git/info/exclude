@@ -15,6 +15,7 @@
 
 !/etc/vnstat.conf
 
+!/etc/pacman.conf
 !/etc/pacman.d/
 /etc/pacman.d/*
 !/etc/pacman.d/hooks
@@ -23,7 +24,18 @@
 /etc/audit/*
 !/etc/audit/rules.d/
 
-!/etc/resolv.conf
+!/etc/squid/
+/etc/squid/*
+!/etc/squid/squid.conf
+
+!/etc/resolvconf.conf
+
+!/etc/NetworkManager
+/etc/NetworkManager/system-connections
+
+!/etc/unbound/
+/etc/unbound/*
+!/etc/unbound/unbound.conf
 
 !/etc/firewalld/
 /etc/firewalld/**/*.old
