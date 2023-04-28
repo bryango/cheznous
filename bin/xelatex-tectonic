@@ -19,15 +19,15 @@ parser = argparse.ArgumentParser(
 # tectonic -Zhelp
 
 add_arg = parser.add_argument_group('FLAGS').add_argument
-printhelp   = add_arg('-h',            action='store_true')  # noqa: E241
-shellescape = add_arg('-shell-escape', action='store_true')  # noqa: E241
-nopdf       = add_arg('-no-pdf',       action='store_true')  # noqa: E241
+printhelp   = add_arg('-h',            action='store_true')
+shellescape = add_arg('-shell-escape', action='store_true')
+nopdf       = add_arg('-no-pdf',       action='store_true')
 
 # customized defaults
 arg_opts = { 'default': True, 'action': 'store_false' }
-aux     = add_arg('-no-aux',   dest='aux',     **arg_opts)  # noqa: E241
-logs    = add_arg('-no-log',   dest='logs',    **arg_opts)  # noqa: E241
-chatter = add_arg('-no-print', dest='chatter', **arg_opts)  # noqa: E241
+aux     = add_arg('-no-aux',   dest='aux',     **arg_opts)
+logs    = add_arg('-no-log',   dest='logs',    **arg_opts)
+chatter = add_arg('-no-print', dest='chatter', **arg_opts)
 # TODO: shell-escape-cwd
 
 add_arg = parser.add_argument_group('OPTIONS').add_argument

@@ -22,6 +22,7 @@
 
 !/etc/audit/
 /etc/audit/*
+!/etc/audit/auditd.conf
 !/etc/audit/rules.d/
 
 !/etc/squid/
@@ -46,6 +47,7 @@
 
 !/etc/systemd/
 /etc/systemd/*
+!/etc/systemd/*@*
 !/etc/systemd/*.d
 !/etc/systemd/system/
 /etc/systemd/system/*/

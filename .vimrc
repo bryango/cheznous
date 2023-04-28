@@ -56,6 +56,10 @@ let g:ale_set_highlights = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 
+" python ruff
+let g:ale_linters = { "python": ["ruff", "jedi"] }
+let g:ale_fixers = { "python": ["ruff", "jedi"] }
+
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0

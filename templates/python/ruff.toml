@@ -1,0 +1,8 @@
+# flake8-to-ruff
+[tool.ruff]
+select = ["E", "F", "W"]
+ignore = [
+    "F403",
+    "F405",
+    # "E402", # imports not at the very top
+]
