@@ -39,6 +39,7 @@ export PATH="$HOME/apps/miktex/bin:$PATH"
 ## ... https://rust-lang.github.io/rustup/environment-variables.html
 export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
 export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # ### Android
 # export ANDROID_SDK_ROOT=$HOME/apps/Android/SDK

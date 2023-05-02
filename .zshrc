@@ -292,11 +292,12 @@ autoload -Uz compinit
 compinit
 
 # zoxide, after compinit
-command -v zoxide &>/dev/null \
-&& eval "$(zoxide init --cmd j zsh)"
+if whichq zoxide; then eval "$(zoxide init --cmd j zsh)"; fi
 
 # pipx
 autoload -U bashcompinit
 bashcompinit
-eval "$(register-python-argcomplete pipx)"
+if whichq register-python-argcomplete; then eval "$(register-python-argcomplete pipx)"; fi
 
+if whichq direnv; then eval "$(direnv hook zsh)"; fi
+if whichq rtx; then eval "$(rtx activate zsh)"; fi
