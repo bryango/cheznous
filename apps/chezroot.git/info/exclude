@@ -13,6 +13,10 @@
 !/etc/
 /etc/*
 
+!/etc/profile.d/
+/etc/profile.d/*
+!/etc/profile.d/Z99-dedup-path.sh
+
 !/etc/vnstat.conf
 
 !/etc/pacman.conf
