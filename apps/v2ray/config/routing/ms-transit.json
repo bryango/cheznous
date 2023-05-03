@@ -1,0 +1,11 @@
+{
+    "rules": [
+        {
+            "type": "field",
+            "domain": [
+                "geosite:microsoft"
+            ],
+            "outboundTag": "transit0"
+        }
+    ]
+}

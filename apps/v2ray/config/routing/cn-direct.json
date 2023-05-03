@@ -1,0 +1,18 @@
+{
+    "rules": [
+        {
+            "type": "field",
+            "domain": [
+                "geosite:cn"
+            ],
+            "outboundTag": "direct"
+        },
+        {
+            "type": "field",
+            "ip": [
+                "geoip:cn"
+            ],
+            "outboundTag": "direct"
+        }
+    ]
+}

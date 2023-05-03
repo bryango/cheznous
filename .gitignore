@@ -1,4 +1,5 @@
 # /.gitignore
 
 /apps/startup.sh
+/apps/v2ray/config/outbounds
 /.zsh_profiles
