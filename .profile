@@ -77,6 +77,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # export PATH="$HOME/.nix-profile/bin:$PATH"  ### /etc/profile.d/nix-daemon.sh
 ###### WARNING: this may kill gnome
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 ### conda envs
 ###### WARNING: this may kill gnome

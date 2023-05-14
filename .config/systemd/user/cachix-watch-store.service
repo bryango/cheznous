@@ -1,0 +1,22 @@
+# https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/system/cachix-watch-store.nix
+
+[Unit]
+Description=Cachix watch store Agent
+After=network-online.target
+
+# allow to restart indefinitely
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=%h/.nix-profile/bin/cachix watch-store chezbryan
+
+# don't put too much stress on the machine when restarting
+RestartSec=7
+# ... using prime to avoid resonance.
+
+# we don't want to kill children processes as those are deployments
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

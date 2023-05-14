@@ -5,6 +5,10 @@
     //     "command": "-workbench.action.closeWindow",
     //     "when": "!editorIsOpen && !multipleEditorGroups"
     // },
+    // { // bug: https://github.com/microsoft/vscode/issues/62534
+    //     "key": "alt+a",
+    //     "command": "git.stageChange"
+    // },
     {
         "key": "ctrl+f12",
         "command": "revealFileInOS",
@@ -33,14 +37,20 @@
         "key": "ctrl+shift+tab",
         "command": "workbench.action.previousEditorInGroup"
     },
-    {
-        "key": "ctrl+\\",
-        "command": "workbench.action.toggleSidebarVisibility"
-    },
-    {  // the latter takes precedence
+    {  // 1st: explorer
         "key": "ctrl+\\",
         "command": "workbench.view.explorer",
         "when": "viewContainer.workbench.view.explorer.enabled && !explorerViewletVisible"
+    },
+    {  // 2nd: outline
+        "key": "ctrl+\\",
+        "command": "outline.focus",
+        "when": "explorerViewletVisible && !view.outline.visible"
+    },
+    {  // finally: close
+        "key": "ctrl+\\",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "view.outline.visible"
     },
     {
         "key": "ctrl+0",
@@ -121,8 +131,14 @@
         "command": "git.stageSelectedRanges",
         "when": "isInDiffEditor"
     },
-    // { // bug: https://github.com/microsoft/vscode/issues/62534
-    //     "key": "alt+a",
-    //     "command": "git.stageChange"
-    // },
+    {
+        "key": "alt+d",
+        "command": "-betterOutline.addDivider",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+d",
+        "command": "-betterOutline.addHeader",
+        "when": "editorTextFocus"
+    },
 ]

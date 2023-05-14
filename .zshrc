@@ -11,6 +11,7 @@
 # ... remove `~/.zcompdump` to refresh
 fpath=(
     ~/.zsh_profiles/completions
+    ~/.nix-profile/share/zsh/site-functions
     $fpath
     ~/.zsh_profiles/plugins/zsh-completions/src
 )
