@@ -19,27 +19,6 @@ in
 
 let
 
-  ## pre-process `temperature.always`
-  config.services.${moduleName} =
-    if cfg.temperature ? always
-    then recursiveUpdate cfg {
-
-      ## same temp for day and night
-      temperature = with cfg.temperature; {
-        day = always;
-        night = always;
-      };
-
-      ## required, but doesn't matter
-      ## ... so just take Beijing:
-      longitude = "116.4";
-      latitude = "39.9";
-
-      ## no need to fade
-      settings.redshift.fade = 0;
-
-    } else cfg;
-
   optionsInputs = {
     inherit config lib pkgs;
     inherit moduleName mainSection;
@@ -58,15 +37,8 @@ let
   ) optionsInputs;
 
 in {
-  # inherit (commonOptions) imports;
 
   options.services.${moduleName} = options.services.redshift;
-
-  config =
-    let
-      ## no systemd service
-      redshiftConfig = builtins.removeAttrs commonOptions.config [ "systemd" ];
-    in
-      mkIf (cfg != {}) redshiftConfig;
+  config = mkIf (cfg != {}) commonOptions.config; #redshiftConfig;
 
 }
