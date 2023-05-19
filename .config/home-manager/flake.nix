@@ -23,7 +23,9 @@
     # nixpkgs.url = "nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "home-manager";
+      # url = "github:nix-community/home-manager";
+
       ## ... home-manager is also a flake
       ## ... but we ask it to follow our nixpkgs:
       inputs.nixpkgs.follows = "nixpkgs";

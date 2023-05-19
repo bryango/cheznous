@@ -22,8 +22,10 @@ in {
   home.packages = with pkgs; [
 
     ## nix utils
+    # nix  # manage itself
+    nvd
     nix-tree
-    nixfmt
+    nixpkgs-fmt  # the official (?) formatter
     nil
     cachix
     hydra-check
@@ -125,4 +127,68 @@ in {
 
   ## use system manpage
   programs.man.enable = false;
+
+  ## modules override
+  imports = [
+    ./redshift-many
+  ];
+
+  ## redshift
+  services.redshift-many = {
+    internal = {
+      settings.randr.crtc = 0;
+      temperature.always = 3200;
+    };
+    external = {
+      settings.randr.crtc = 1;
+      temperature.always = 3600;
+      # temperature.always = 4800;
+    };
+  };
+
+  # ## redshift
+  # services.redshift = {
+  #   temperature.always = 3200;
+  #   settings.randr.crtc = 0;
+  # };
+
+  # services.redshift-ext = {
+  #   temperature.always = 3600;
+  #   # temperature.always = 4800;
+  #   settings.randr.crtc = 1;
+  # };
+
+  ## nix settings
+  nix.package = pkgs.nix;
+  nix.settings = {
+    max-jobs = "auto";
+    
+    ## need to set `trusted-substituters` in `/etc/nix/nix.conf`
+    extra-substituters = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store";
+    # extra-substituters = "https://mirror.sjtu.edu.cn/nix-channels/store";
+  };
+  nix.extraOptions = ''
+
+    ## ... config follows from `/etc/nix/nix.conf`
+    ## ... see also: man nix.conf
+    ## ... https://nixos.org/manual/nix/stable/#sec-conf-file
+
+    # vim: set ft=nix:'';
+
+  ## ~/.config/nix/registry.json
+  ## ... pin here if don't want to update
+  ## ... otherwise, manage dynamically with `nix registry pin`
+  # nix.registry = {
+
+  #   nixpkgs.to = {
+  #     type = "github";
+  #     owner = "NixOS";
+  #     repo = "nixpkgs";
+  #     ref = "master";
+
+  #     # for `getoptions`
+  #     rev = "9b877f245d19e5bc8c380c91b20f9e2978c74d4a";
+  #   };
+
+  # };
 }

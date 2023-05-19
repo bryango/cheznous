@@ -1,0 +1,6 @@
+### this is the `--user` version of `network-online.target`
+
+[Unit]
+Description=Network is Online (for --user)
+Documentation=man:systemd.special(7)
+Documentation=https://systemd.io/NETWORK_ONLINE

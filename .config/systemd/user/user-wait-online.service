@@ -1,8 +1,9 @@
-[Unit]
 ### this is the `--user` version of `NetworkManager-wait-online.service`
+
+[Unit]
 Description=Network Manager Wait Online (--user)
 Documentation=man:nm-online(1)
-Before=network-online.target
+Before=online.target
 
 [Service]
 # `nm-online -s` waits until the point when NetworkManager logs
@@ -19,7 +20,6 @@ ExecStart=/usr/bin/nm-online -s -q
 RemainAfterExit=yes
 
 # Set $NM_ONLINE_TIMEOUT variable for timeout in seconds.
-# Edit with `systemctl edit NetworkManager-wait-online`.
 #
 # Note, this timeout should commonly not be reached. If your boot
 # gets delayed too long, then the solution is usually not to decrease
@@ -28,4 +28,4 @@ RemainAfterExit=yes
 Environment=NM_ONLINE_TIMEOUT=60
 
 [Install]
-WantedBy=network-online.target
+WantedBy=online.target

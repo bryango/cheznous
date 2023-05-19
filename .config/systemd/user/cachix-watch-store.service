@@ -2,7 +2,7 @@
 
 [Unit]
 Description=Cachix watch store Agent
-After=network-online.target
+After=online.target
 
 # allow to restart indefinitely
 StartLimitIntervalSec=0
