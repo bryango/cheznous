@@ -135,15 +135,13 @@ in {
 
   ## redshift
   services.redshift-many = {
-    internal = {
+    redshift = {
       settings.randr.crtc = 0;
-      temperature.day = 3200;
-      temperature.night = 3200;
+      temperature.always = 3200;
     };
-    external = {
+    redshift-ext = {
       settings.randr.crtc = 1;
-      temperature.day = 3600;
-      temperature.night = 3600;
+      temperature.always = 3600;
       # temperature.always = 4800;
     };
   };

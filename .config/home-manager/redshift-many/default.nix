@@ -1,34 +1,63 @@
-{ config, lib, ... }:
+{ config, options, lib, pkgs, modulesPath, ... }:
 
 with lib;
 
 let
 
-  baseModule = "redshift-many";
-  mainSection = "redshift";
+  baseModuleName = "redshift-many";
+  xdgConfigHome = config.xdg.configHome;
+  cfg = config.services.${baseModuleName};
+  opts = options.services.redshift;
 
-  instanceConfigs = config.services.${baseModule};
-  instanceNames = attrNames instanceConfigs;
+in
+
+let
+
+  instance = import ./instance.nix;
+
+  mergeConfig = item: mkMerge (
+    mapAttrsToList (
+      instanceName: instanceConfig:
+        getAttrFromPath item (instance {
+          inherit instanceName instanceConfig xdgConfigHome;
+          inherit lib pkgs modulesPath;
+        })
+    ) cfg
+  );
 
 in {
 
-  imports = map (import ./instance.nix baseModule mainSection) instanceNames;
+  config = {
+    xdg.configFile = mergeConfig ["config" "xdg" "configFile"];
+    # systemd = mergeConfig ["config" "systemd"];
+  };
 
-  options.services.${baseModule} = mkOption {
+  options.services.${baseModuleName} = mkOption {
     default = { };
     example = literalExpression ''
       {
         internal = {
-          temperature.day = 3200;
-          temperature.night = 3200;
+          temperature.always = 3200;
           settings.randr.crtc = 0;
         };
       };
     '';
     type = with types; attrsOf (submodule {
 
-      ## extending redshift options
-      options = options.services.redshift;
+      ## inheriting redshift options
+      options = recursiveUpdate opts {
+
+        ## extending options
+        temperature.always = mkOption {
+          type = types.nullOr types.int;
+          default = null;
+          description = ''
+            Colour temperature to use for day _and_ night, between
+            <literal>1000</literal> and <literal>25000</literal> K.
+          '';
+        };
+      };
+
     });
     description = ''
       The configuration for many redshift instances.
