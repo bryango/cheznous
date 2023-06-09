@@ -1,7 +1,5 @@
 { config, options, lib, pkgs, modulesPath, ... }:
 
-with lib;
-
 let
 
   baseModuleName = "redshift-many";
@@ -13,15 +11,17 @@ in
 
 let
 
-  instance = import ./instance.nix;
+  instance = { instanceName, instanceConfig }: import ./instance.nix {
+    inherit instanceName instanceConfig;
+    inherit xdgConfigHome;
+    inherit lib pkgs modulesPath;
+  };
 
-  mergeConfig = item: mkMerge (
+  mergeConfig = configPath: with lib; mkMerge (
     mapAttrsToList (
       instanceName: instanceConfig:
-        getAttrFromPath item (instance {
-          inherit instanceName instanceConfig xdgConfigHome;
-          inherit lib pkgs modulesPath;
-        })
+        getAttrFromPath configPath
+        (instance { inherit instanceName instanceConfig; })
     ) cfg
   );
 
@@ -32,7 +32,7 @@ in {
     # systemd = mergeConfig ["config" "systemd"];
   };
 
-  options.services.${baseModuleName} = mkOption {
+  options.services.${baseModuleName} = with lib; mkOption {
     default = { };
     example = literalExpression ''
       {

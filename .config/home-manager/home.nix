@@ -1,4 +1,4 @@
-{ config, pkgs, attrs, ... }:
+{ pkgs, attrs, ... }:
 
 let
 
@@ -12,7 +12,7 @@ let
     sha256 = "1yazcc1hng3pbvml1s7i2igf3a90q8v8g6fygaw70vis32xibhz9";
     ## ... generated from `nix-prefetch-url --unpack`
   }) {
-    inherit (config.nixpkgs) system;
+    inherit (attrs) system config;
     ## https://github.com/nix-community/home-manager/issues/616#issuecomment-568612737
   };
 
@@ -32,7 +32,8 @@ in {
 
     # apps
     circumflex  # Hacker News terminal
-    getoptions  # shell argument parser
+    uxplay  # airplay server
+    # getoptions  # shell argument parser
 
     # python2 apps from `nixpkgs_python2`
     gimp-with-plugins
@@ -77,9 +78,6 @@ in {
         withPython = true;
       };
     };
-
-    allowUnfree = true;
-    # allowBroken = true;
 
     permittedInsecurePackages = [
       "python-2.7.18.6"
@@ -145,18 +143,6 @@ in {
       # temperature.always = 4800;
     };
   };
-
-  # ## redshift
-  # services.redshift = {
-  #   temperature.always = 3200;
-  #   settings.randr.crtc = 0;
-  # };
-
-  # services.redshift-ext = {
-  #   temperature.always = 3600;
-  #   # temperature.always = 4800;
-  #   settings.randr.crtc = 1;
-  # };
 
   ## nix settings
   nix.package = pkgs.nix;
