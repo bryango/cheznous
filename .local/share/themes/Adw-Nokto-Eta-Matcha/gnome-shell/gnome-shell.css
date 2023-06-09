@@ -1,74 +1,50 @@
-/* @import url("/home/bryan/.themes/Matcha-dark-sea/gnome-shell/gnome-shell.css"); */
+/* https://github.com/GNOME/gnome-shell/blob/-/data/theme */
+/* MOD by Bryan */
+/* for GNOME 44 */
 
+
+/* _common.scss */
 stage {
   font-size: 12pt;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.button {
-  font-size: 12pt;
-  font-weight: 500;
-}
-
-.osd-window {
-  font-weight: bold;
-} 
-  
-.osd-window .osd-monitor-label {
-  font-size: 45px;
-  font-weight: 400;
-} 
-
-#panel {
-  font-weight: bold;
-  /* height: 28px;
-  box-shadow: none; */
-  background-color: rgba(19, 25, 28, 0.54);
-} 
-
-#panel .panel-button {
-  /* -natural-hpadding: 6px;
-  -minimum-hpadding: 6px;
-  transition-duration: 0.2s; */
-  font-weight: bold;
+  /* color: rgba(255, 255, 255, 0.85); */
 }
 
 
-/* MOD by Bryan */
-/* for GNOME 43 */
-
-.popup-menu .popup-menu-content {
-    /* padding: 1.35em 2em 1.5em 1em; */
-    padding: 1.35em 1em 1.5em 1em;
+/* widgets/_popovers.scss */
+.popup-menu-content {
+  /* top | right | bottom | left */
+  padding: 1.35em 1em 1.5em 1em;
 }
+
 .popup-menu-ornament {
-    width: 0 !important;
+  width: 0 !important;
 }
 
+
+/* widgets/_panel.scss */
 #panel {
-    height: 26.5px;
-    /* background-color: #111; */
+
+  /* height: 26.5px; */
+  height: 1.6em;
+
+  /* _palette.scss */
+  background-color: rgba(19, 25, 28, 0.54);
 }
 
-#panel .panel-corner {
-    -panel-corner-background-color: #111;
-}
-
+/*
 #panel #appMenu {
-    padding: 0 0 0 0;
+  padding: 0 0 0 0;
+  spacing: 0 0 0 0;
 }
+*/
 
 #panel #appMenu StLabel {
-    /* font-family: "Noto Sans"; */
-    font-family: "Roboto Condensed";
-    font-size: .9em;
+  font-family: "Roboto Condensed";
+  font-size: .9em;
 }
 
 #panel #appMenu .fallback-app-icon {
-    icon-size: 2px;
-    /* width: 2px; */
-    /* height: 2px; */
+  icon-size: 2px;
 }
 
 #panel .panel-button {
@@ -138,19 +114,6 @@ StEntry:focus {
     font-size: .9em;
 }
 
-/* .screen-shield-clock { */
-/*     padding-bottom: 1.5em; */
-/*     color: #CFD8DC; */
-/*     text-align: center; */
-/*     font-weight: bold; */
-/*     text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6); */
-/* } */
-
-/* .screen-shield-clock-time { */
-/*     font-size: 72pt; */
-/*     text-shadow: 0 2px 2px rgba(0, 0, 0, 0.28); */
-/* } */
-
 .notification-banner {
     padding: 8px;
     padding-bottom: 12px;
@@ -198,11 +161,6 @@ StEntry:focus {
     background: none;
 }
 
-.dash-item-container StButton.show-apps /* .overview-icon */ {
-    /* margin-left: 80px; */
-    /* margin-right: 80px; */
-}
-
 #dash {
     border-radius: 20px;
     padding-left: 0px;
@@ -215,10 +173,6 @@ StEntry:focus {
 .dash-item-container .app-well-app, .show-apps {
     padding-left: 0px;
 }
-
-/* #overviewGroup { */
-/*     background-color: black; */
-/* } */
 
 /* dock margin */
 #dashtodockContainer.left.shrink {
