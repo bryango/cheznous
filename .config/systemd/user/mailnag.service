@@ -3,6 +3,7 @@ Description=mailnag daemon
 
 [Service]
 ExecStart=mailnag --quiet
+Restart=always
 
 # [Install]
 # WantedBy=unlock.target

@@ -14,8 +14,11 @@ ExecStart=%h/.nix-profile/bin/cachix watch-store chezbryan
 RestartSec=7
 # ... using prime to avoid resonance.
 
-# we don't want to kill children processes as those are deployments
-KillMode=process
+# slow shutdown remedy
+TimeoutStopSec=3
+
+# # we don't want to kill children processes as those are deployments
+# KillMode=process
 Restart=on-failure
 
 [Install]
