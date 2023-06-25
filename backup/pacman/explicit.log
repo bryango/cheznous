@@ -18,7 +18,6 @@ blueman 2.3.5-2
 bluez-utils 5.66-1
 btrfs-progs 6.3-2
 btrfsmaintenance 1:0.5-1
-byobu 5.133-3
 cargo-binstall 0.23.0-1
 cdrtools 3.02a09-5
 chezmoi 2.33.6-1
@@ -44,7 +43,6 @@ firewalld 1.3.2-1
 flatpak 1:1.15.4-1
 foliate 2.6.4-2
 font-manager 0.8.8-1
-git 2.40.1-1
 gnome-backgrounds 44.0-1
 gnome-browser-connector 42.1-2
 gnome-calculator 44.0-1
@@ -127,7 +125,6 @@ pipewire-alsa 1:0.3.70-2
 pipewire-jack 1:0.3.70-2
 pipewire-pulse 1:0.3.70-2
 progress 0.16-1
-proxychains-ng 4.16-2
 python-nautilus 1:1.2.3-7
 python-pipx 1.2.0-1
 python-pyqt5 5.15.9-2
@@ -156,7 +153,6 @@ ttf-nerd-fonts-symbols 3.0.1-1
 ttf-roboto 2.138-4
 tun2socks 2.4.1-1
 unbound 1.17.1-2
-v2ray 5.4.1-1
 vlc 3.0.18-9
 vnstat 2.10-1
 vulkan-intel 23.0.4-1
