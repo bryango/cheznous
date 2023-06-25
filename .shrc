@@ -243,10 +243,10 @@ if whichq pacman; then
 	[[ $- == *i* ]] && function which {
 		if [[ -n "$ZSH_VERSION" ]]; then
 			pacman -Qo "$(builtin which "$1")" 2>/dev/null \
-				|| builtin which "$1"
+				|| builtin which "$@"
 		elif [[ -n "$BASH_VERSION" ]]; then
 			pacman -Qo "$(command -v "$1" 2>/dev/null)" 2>/dev/null \
-				|| command -v "$1"
+				|| command -v "$@"
 		fi
 	}
 	whichq yay && alias yay="yay"

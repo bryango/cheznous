@@ -1,0 +1,63 @@
+#!/bin/bash
+# Generic utils, for bash AND ZSH
+
+# [[ -r "$HOME/.bash_utils" ]] \
+#     && source "$HOME/.bash_utils" \
+#     || >&2 echo "### require .bash_utils, not found"
+
+# one-line function ends in semicolon
+function pathq { echo "$PATH" | grep -q "$1"; }
+function whichq { command -v "$@" &>/dev/null; }
+
+# shellcheck disable=2015,1090
+function source-try { [[ -r "$1" ]] && source "$1" || true; }
+function shell-interactive { [[ $- == *i* ]]; }
+
+function fatal {
+    >&2 echo "### $1";
+    if [[ -n $2 ]]
+    then exit "$2"
+    else exit 1
+    fi
+}
+
+alias pathp='echo $PATH | tr ":" "\n"'
+
+# set -x & trap
+set_trace="set -x"
+trap_all="trap 'zsh -i; trap - EXIT' EXIT HUP INT QUIT PIPE TERM"
+# shellcheck disable=SC2034
+set_trap="$set_trace; $trap_all"
+
+# kill family
+function kill-family {  # kill $cmd, protect $pid
+    # shellcheck disable=2207
+    IFS=$'\n' parents=( $(pgrep --full "$1" | grep -v "^$2$") )
+    children=()
+    for parent in "${parents[@]}"; do
+        # shellcheck disable=2207
+        IFS=$'\n' children+=( $(pgrep -P "$parent") )
+    done
+    [[ -n ${parents[*]} ]] && kill -9 "${parents[@]}"
+    [[ -n ${children[*]} ]] && kill -9 "${children[@]}"
+}
+
+## Avoid fork if we can enable builtin sleep
+## See: <https://bbs.archlinux.org/viewtopic.php?pid=1816939#p1816939>
+## Note: This could somehow slow down Ctrl-C
+
+function enable-builtin-sleep {
+    for file in \
+        /usr/lib/bash/sleep \
+        /usr/lib32/bash/sleep \
+        /usr/lib64/bash/sleep
+    do
+        [ -r "$file" ] && enable -f "$file" sleep && break
+    done
+}
+
+# Alternative builtin sleep with read -t
+function snore {
+    # shellcheck disable=2162
+    read -t "$1" <> <(:)
+}
