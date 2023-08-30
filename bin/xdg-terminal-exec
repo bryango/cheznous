@@ -1,1 +1,25 @@
-x-terminal-emulator
+#!/bin/bash
+# open terminal: with tilix
+
+# glib has terminals hard coded
+# see `known_terminals` at https://github.com/GNOME/glib/blob/main/gio/gdesktopappinfo.c
+# see also https://gitlab.gnome.org/GNOME/glib/-/issues/338
+
+args=("$@")
+
+# add `--` if called as `xdg-terminal-exec`
+if [[ $(basename "$0") == "xdg-terminal-exec" ]]; then
+    args=(-- "${args[@]}")
+fi
+
+# expand the first '--' symbol
+for idx in "${!args[@]}"; do
+    [[ ${args[idx]} == '--' ]] && args[idx]='-e' && break
+done
+
+# debug
+>&2 echo "### called as: [ $0 ]"
+>&2 echo "### passing ${#args[@]} args: [ ${args[*]} ]"
+
+tilix --action=app-new-session "${args[@]}" &> /dev/null & disown
+exec tilix --focus-window

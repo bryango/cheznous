@@ -1,0 +1,22 @@
+#!/bin/bash
+# resolvconf wrapper
+
+resolvconf=/usr/bin/resolvconf
+
+if command -v bat &>/dev/null; then
+  cat=bat
+else
+  # shellcheck disable=2209
+  cat=cat
+fi
+
+if [[ $# -gt 0 ]]; then
+  exec "$resolvconf" "$@"
+fi
+
+set -x
+sudoedit /etc/resolvconf.conf || exit "$?"
+sudo "$resolvconf" -u
+
+$cat /etc/unbound/resolvconf.conf
+$cat /etc/resolv.conf

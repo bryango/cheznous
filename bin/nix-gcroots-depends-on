@@ -1,0 +1,32 @@
+#!/bin/bash
+# gcroots dependency check
+# pass arguments to `nix why-depends`
+
+## special: no args
+if [[ $# -eq 0 ]]; then
+  ## print a nice list without temporary deps
+  nix-store --gc --print-roots \
+    | grep -v -e ^/proc -e '{temp:'
+  exit
+fi
+
+readarray -t gcroots <<< "$( \
+  nix-store --gc --print-roots \
+  | sed -E 's|(.*) -> (/nix/store.*)|\1|g' \
+  | sort --version-sort
+)"
+
+for entry in "${gcroots[@]}"; do
+  tree=$(\
+    { nix why-depends --all "$entry" "$@" 2>/dev/null; }
+  )
+  echo "" >&2
+  if [[ -n $tree ]]; then
+    ## does depend: print only $entry to stdout
+    echo "$entry"
+    echo "$tree" >&2
+  else
+    ## does not depend: no stdout at all
+    echo "$entry" >&2
+  fi
+done

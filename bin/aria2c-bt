@@ -1,0 +1,9 @@
+#!/bin/bash
+# bt options
+
+ARIA2C_TRACKERS="https://trackerslist.com/best_aria2.txt"
+
+aria2c \
+    --bt-tracker="$(curl "$ARIA2C_TRACKERS")" \
+    --bt-save-metadata=true \
+    "$@"

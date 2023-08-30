@@ -240,8 +240,9 @@ chpwd() {
     >&2 echo "$(tput bold)>> $PWD$(tput sgr0)"
 }
 
-# Remove unwanted completion
-zstyle ':completion:*' ignored-patterns 'gedi'
+## Remove unwanted completion
+## NOTE: latter options overwrite previous options
+zstyle ':completion:*:*:-command-:*:*' ignored-patterns 'resolvectl|gedi'
 zstyle ':completion:*' known-hosts-file off
 zstyle ':completion:*' hosts off
 # Custom completion

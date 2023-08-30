@@ -73,10 +73,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # 	eval "$("$HOME/$BREW_BIN" shellenv)"
 # fi
 
-### nix binaries
-# export PATH="$HOME/.nix-profile/bin:$PATH"  ### /etc/profile.d/nix-daemon.sh
-###### WARNING: this may kill gnome
-export XDG_DATA_DIRS="$HOME/.nix-profile/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+## nix related setup
 . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 ### conda envs

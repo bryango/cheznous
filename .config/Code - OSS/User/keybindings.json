@@ -15,11 +15,6 @@
         "when": ""
     },
     {
-        "key": "f12",
-        "command": "workbench.action.terminal.openNativeConsole",
-        "when": "!terminalFocus"
-    },
-    {
         "key": "ctrl+tab",
         "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
         "when": "!activeEditorGroupEmpty"
@@ -140,5 +135,10 @@
         "key": "shift+alt+d",
         "command": "-betterOutline.addHeader",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "f12",
+        "command": "workbench.action.terminal.openNativeConsole",
+        "when": "!terminalFocus"
     },
 ]

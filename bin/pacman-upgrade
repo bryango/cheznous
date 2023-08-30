@@ -1,0 +1,35 @@
+#!/bin/bash
+# check mirror status before full update
+# ... requires: `pacman-mirrors-status`
+# shellcheck disable=2206
+
+PACMAN_DEFAULT_COUNTRY="China"
+
+if ! command -v pacman &>/dev/null; then
+    echo ':: pacman not found!'
+    exit 1
+fi
+
+if ! command -v pacman-mirrors-status &>/dev/null; then
+    echo ':: pacman-mirrors-status not found!'
+fi
+
+loc=$PACMAN_DEFAULT_COUNTRY
+mirror=$(pacman-conf --repo=core Server)
+echo ":: current mirror: $mirror"
+
+hostname=$(python - <<- EOF
+	from urllib.parse import urlparse
+	print(urlparse('$mirror').hostname)
+EOF
+)
+# echo ":: hostname: $hostname"
+
+pacman-mirrors-status "$loc" \
+    | GREP_COLORS='mt=1;33' grep --color=always -E "$hostname|$" \
+    | sed -E 's/([[ ])0([],])/\1MARK\2/g' \
+    | grep --color=always -E 'MARK|$' \
+    | sed -e 's/MARK/0/g'
+
+echo ":: upgrading..."
+sudo pacman -Syu "$@"

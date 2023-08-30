@@ -1,0 +1,11 @@
+#!/bin/bash
+# print ip address
+
+ip -json addr show scope global "$@" | jq --compact-output '
+	.[] | select(
+		( .ifname | contains("vmnet") | not)
+		and ( .ifname != "lo" )
+	)
+'
+
+# vim: set noexpandtab:

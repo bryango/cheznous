@@ -1,0 +1,6 @@
+#!/bin/bash
+# print ip gateway
+
+ip -json route show default | jq '.[].gateway' --raw-output
+
+# vim: set noexpandtab:

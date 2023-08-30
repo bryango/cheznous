@@ -2,4 +2,5 @@
 
 /apps/startup.sh
 /apps/v2ray/config/outbounds
+/.config/argos/*wifi*.sh
 /.zsh_profiles
