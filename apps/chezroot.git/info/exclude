@@ -10,6 +10,10 @@
 # ... avoid `*`, it works recursively!
 # ... except:
 
+!/usr/
+/usr/*
+!/usr/local/
+
 !/etc/
 /etc/*
 
@@ -18,11 +22,21 @@
 !/etc/profile.d/Z99-dedup-path.sh
 
 !/etc/vnstat.conf
+!/etc/vconsole.conf
+!/etc/mkinitcpio.conf
+!/etc/shells
 
 !/etc/pacman.conf
 !/etc/pacman.d/
 /etc/pacman.d/*
 !/etc/pacman.d/hooks
+
+!/etc/gdm
+/etc/gdm/*/
+
+!/etc/udev
+/etc/udev/*
+!/etc/udev/rules.d/
 
 !/etc/audit/
 /etc/audit/*

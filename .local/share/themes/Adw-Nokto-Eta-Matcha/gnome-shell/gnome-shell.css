@@ -20,6 +20,10 @@ stage {
   width: 0 !important;
 }
 
+/* github:wengxt/gnome-shell-extension-kimpanel/pull/71 */
+.popup-menu-content.kimpanel-popup-content {
+  padding: 6px;
+}
 
 /* widgets/_panel.scss */
 #panel {

@@ -1,0 +1,53 @@
+{
+  "flakes": [
+    {
+      "from": {
+        "id": "home-manager",
+        "type": "indirect"
+      },
+      "to": {
+        "lastModified": 1701071203,
+        "narHash": "sha256-lQywA7QU/vzTdZ1apI0PfgCWNyQobXUYghVrR5zuIeM=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "db1878f013b52ba5e4034db7c1b63e8d04173a86",
+        "type": "github"
+      }
+    },
+    {
+      "from": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      },
+      "to": {
+        "lastModified": 1701040486,
+        "narHash": "sha256-vawYwoHA5CwvjfqaT3A5CT9V36Eq43gxdwpux32Qkjw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "45827faa2132b8eade424f6bdd48d8828754341a",
+        "type": "github"
+      }
+    },
+    {
+      "from": {
+        "id": "nixpkgs-config",
+        "type": "indirect"
+      },
+      "to": {
+        "path": "/home/bryan/.config/home-manager/nixpkgs-config",
+        "type": "path"
+      }
+    },
+    {
+      "from": {
+        "id": "cheznix",
+        "type": "indirect"
+      },
+      "to": {
+        "path": "/home/bryan/.config/home-manager",
+        "type": "path"
+      }
+    }
+  ],
+  "version": 2
+}
