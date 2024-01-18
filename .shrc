@@ -9,7 +9,9 @@
 ###### 1. UNIVERSAL HELPERS ######
 
 # no ctrl-s flow control
-stty -ixon
+# https://github.com/romkatv/powerlevel10k/issues/388#issuecomment-567679874
+# shellcheck disable=2094
+stty -ixon <"$TTY" >"$TTY"
 
 [[ -r "$HOME/.bash_utils" ]] \
 	&& source "$HOME/.bash_utils" \

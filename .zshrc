@@ -1,5 +1,16 @@
 #!/bin/zsh
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+
+  ## USERMOD: give me some space at the top!
+  echo
+
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #################
 # USER init MOD #
 #################
@@ -29,7 +40,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bullet-train.zsh/bullet-train"
+# ZSH_THEME="bullet-train.zsh/bullet-train"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -97,6 +109,7 @@ plugins=(
   brew
   pip
   nix-zsh-completions
+  jq
 )
 
 #echo $fpath | sed 's/ /\n/g'
@@ -303,3 +316,6 @@ if whichq register-python-argcomplete; then eval "$(register-python-argcomplete 
 
 if whichq direnv; then eval "$(direnv hook zsh)"; fi
 if whichq rtx; then eval "$(rtx activate zsh)"; fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
