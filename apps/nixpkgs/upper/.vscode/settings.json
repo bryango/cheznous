@@ -1,0 +1,5 @@
+{
+    // improve performance for nixpkgs
+    "gitlens.currentLine.enabled": false,
+    "gitlens.statusBar.enabled": false
+}

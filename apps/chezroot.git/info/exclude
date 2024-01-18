@@ -52,6 +52,10 @@
 !/etc/NetworkManager
 /etc/NetworkManager/system-connections
 
+!/etc/ca-certificates
+/etc/ca-certificates/*
+!/etc/ca-certificates/trust-source
+
 !/etc/unbound/
 /etc/unbound/*
 !/etc/unbound/unbound.conf
