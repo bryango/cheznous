@@ -315,7 +315,7 @@ bashcompinit
 if whichq register-python-argcomplete; then eval "$(register-python-argcomplete pipx)"; fi
 
 if whichq direnv; then eval "$(direnv hook zsh)"; fi
-if whichq rtx; then eval "$(rtx activate zsh)"; fi
+if whichq rtx; then eval "$(mise activate zsh)"; fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

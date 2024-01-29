@@ -1,5 +1,7 @@
 # vim: set ft=gitignore :
 
+!*.pdf
+
 *.git
 Thumbs.db
 *cache*

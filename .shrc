@@ -11,7 +11,9 @@
 # no ctrl-s flow control
 # https://github.com/romkatv/powerlevel10k/issues/388#issuecomment-567679874
 # shellcheck disable=2094
-stty -ixon <"$TTY" >"$TTY"
+if [[ -n "$TTY" ]]; then
+	stty -ixon <"$TTY" >"$TTY"
+fi
 
 [[ -r "$HOME/.bash_utils" ]] \
 	&& source "$HOME/.bash_utils" \
@@ -32,8 +34,12 @@ alias cp='cp -i'
 alias mv='mv -i'
 # 'vi' points to vim
 alias vi=nvim
-# expand aliases after sudo
-alias sudo='sudo '
+## sudo and su
+# shellcheck disable=2117
+su()   { /bin/su   "$@"; }
+sudo() { /bin/sudo "$@"; }
+alias su=/bin/su
+alias sudo=/bin/sudo
 
 # Chinese & UTF8
 alias env-zh='env LANG=zh_CN.UTF-8'
