@@ -1,4 +1,0 @@
-[settings]
-
-experimental = true  # for builtin python support
-# ... see: https://github.com/jdxcode/rtx/blob/main/docs/python.md
