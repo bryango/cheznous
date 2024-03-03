@@ -274,6 +274,8 @@ whichq fuck && [[ $- == *i* ]] && \
 	eval "$(thefuck --alias)"
 whichq setfacl && [[ -e /dev/video0 ]] && \
 	alias setfacl-block-video="sudo setfacl -b /dev/video0"
+whichq git-branchless && \
+	alias git='git-branchless wrap --'
 
 ## dotfiles
 if whichq chezmoi; then

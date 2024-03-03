@@ -9,7 +9,12 @@
 [alias]
 	root = rev-parse --show-toplevel
 	stash-keep = "!git stash && git stash apply"
-	; squash-all = "!f(){ git reset $(git commit-tree HEAD^{tree} -m \"${1:-New start: $(date +"%y%m%d_%H%M")}\");};f"
+	stat = status
+	remote-verbose = remote --verbose
+	log-graph = log --topo-order --graph
+	annotate = tag --annotate
+[branch]
+	sort = -committerdate
 [push]
 	default = simple
 [core]

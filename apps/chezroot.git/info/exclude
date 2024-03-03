@@ -21,15 +21,22 @@
 /etc/profile.d/*
 !/etc/profile.d/Z99-dedup-path.sh
 
+!/etc/grub.d/
+/etc/grub.d/*
+!/etc/grub.d/08_custom_halt
+
+!/etc/locale.conf
 !/etc/vnstat.conf
 !/etc/vconsole.conf
 !/etc/mkinitcpio.conf
 !/etc/shells
+!/etc/sysctl.d/
 
 !/etc/pacman.conf
 !/etc/pacman.d/
 /etc/pacman.d/*
 !/etc/pacman.d/hooks
+!/etc/pacman.d/mirrorlist
 
 !/etc/gdm
 /etc/gdm/*/

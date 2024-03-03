@@ -6,12 +6,8 @@
         "type": "indirect"
       },
       "to": {
-        "lastModified": 1705169127,
-        "narHash": "sha256-j9OEtNxOIPWZWjbECVMkI1TO17SzlpHMm0LnVWKOR/g=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "f2942f3385f1b35cc8a1abb03a45e29c9cb4d3c8",
-        "type": "github"
+        "path": "/home/bryan/.nix-defexpr/channels/home-manager",
+        "type": "path"
       }
     },
     {
@@ -22,7 +18,7 @@
       "to": {
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2776c7306b0501382d1b37354cfa0a88e152d109",
+        "rev": "b8154544e46d6dce2c76aeacf0b604886855304b",
         "type": "github"
       }
     },
