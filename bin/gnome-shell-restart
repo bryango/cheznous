@@ -1,0 +1,6 @@
+#!/bin/bash
+# restart gnome shell via dbus call
+
+# this achieves the same effect as `Alt-F2 > r`
+# see: https://github.com/GNOME/gnome-shell/blob/main/js/ui/runDialog.js
+exec busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s "Meta.restart(_('Restarting…'), global.context);"
