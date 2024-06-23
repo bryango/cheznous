@@ -269,7 +269,8 @@ compcopy() {
 }
 compcopy tmux byobu
 compcopy yadm yadm-nonbare
-compcopy env proxychains env-proxy tldr
+compcopy env proxychains env-proxy
+compcopy man tldr
 compcopy ssh ssh-serve autossh autossh-reverse
 
 # git: Don't complete remote url or local directories

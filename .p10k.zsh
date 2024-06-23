@@ -810,7 +810,7 @@
   ##################[ chezmoi_shell: chezmoi shell (https://www.chezmoi.io/) ]##################
   # chezmoi shell color.
   typeset -g POWERLEVEL9K_CHEZMOI_SHELL_FOREGROUND=white ## USERMOD
-  typeset -g POWERLEVEL9K_CHEZMOI_SHELL_BACKGROUND= ## USERMOD
+  typeset -g POWERLEVEL9K_CHEZMOI_SHELL_BACKGROUND=0 ## USERMOD
   # Custom icon.
   # typeset -g POWERLEVEL9K_CHEZMOI_SHELL_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
@@ -1005,8 +1005,8 @@
 
   #####################[ anaconda: conda environment (https://conda.io/) ]######################
   # Anaconda environment color.
-  typeset -g POWERLEVEL9K_ANACONDA_FOREGROUND=0
-  typeset -g POWERLEVEL9K_ANACONDA_BACKGROUND=4
+  typeset -g POWERLEVEL9K_ANACONDA_FOREGROUND=white  ## USERMOD, was 0
+  typeset -g POWERLEVEL9K_ANACONDA_BACKGROUND=5      ## USERMOD, was 4
 
   # Anaconda segment format. The following parameters are available within the expansion.
   #
