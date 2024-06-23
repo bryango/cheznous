@@ -2,6 +2,7 @@
 
 /apps/startup.sh
 /apps/v2ray/config/outbounds
+/.nix-defexpr/channels/nixpkgs-git
 /.config/nix/registry.json
 /.config/argos/*wifi*.sh
 /.zsh_profiles
