@@ -64,7 +64,7 @@ stage {
 
 #panel .panel-button .system-status-icon {
     icon-size: 12.5px;
-    padding: 0 2px;
+    padding: 0 0px;
 }
 
 /* #panel .panel-button .panel-status-indicators-box { */
