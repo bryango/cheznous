@@ -1,0 +1,19 @@
+// vim: filetype=jsonc
+{
+  "suggest.noselect": true,
+  "languageserver": {
+    "grammarly":{
+      "command": "grammarly-languageserver",
+      "args": [
+        "--stdio",
+      ],
+      "filetypes": [
+        "markdown",
+        "gitcommit",
+      ],
+      "initializationOptions": {
+        "clientId": "client_BaDkMgx4X19X9UxxYRCXZo",
+      }
+    }
+  },
+}

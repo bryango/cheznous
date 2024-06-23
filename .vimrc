@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'dense-analysis/ale'
     if has('nvim')
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        Plug 'neovim/nvim-lspconfig'
     endif
 call plug#end()
 
