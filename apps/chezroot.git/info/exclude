@@ -25,6 +25,10 @@
 /etc/grub.d/*
 !/etc/grub.d/08_custom_halt
 
+!/etc/ssh
+/etc/ssh/*
+!/etc/ssh/ssh*_config.d
+
 !/etc/locale.conf
 !/etc/vnstat.conf
 !/etc/vconsole.conf
@@ -37,6 +41,10 @@
 /etc/pacman.d/*
 !/etc/pacman.d/hooks
 !/etc/pacman.d/mirrorlist
+
+!/etc/samba
+/etc/samba/*/
+!/etc/samba/smb.conf
 
 !/etc/gdm
 /etc/gdm/*/
