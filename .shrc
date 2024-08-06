@@ -261,8 +261,15 @@ if whichq pacman; then
 	whichq yay && alias yay="yay"
 fi
 
-whichq lazygit && \
-	function git { [[ $# -eq 0 ]] && lazygit || /usr/bin/git "$@"; }
+[[ $- == *i* ]] && function diff {
+	if [[ $# -eq 2 ]]; then
+		git diff --no-index "$@"
+	elif whichq diff-so-fancy; then
+		command diff -u "$@" | diff-so-fancy
+	else
+		command diff "$@"
+	fi
+}
 # whichq nethogs && \
 #	alias nethog='sudo nethogs'  # prefer setcap
 whichq powertop && \

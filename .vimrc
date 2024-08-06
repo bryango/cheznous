@@ -18,6 +18,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'tpope/vim-surround'
     Plug 'jiangmiao/auto-pairs'
+    Plug 'rickhowe/diffchar.vim'
 
     " ide
     Plug 'tpope/vim-commentary'
@@ -120,6 +121,13 @@ hi NonText ctermbg=NONE guibg=NONE
 hi EndOfBuffer ctermfg=yellow guifg=#D19A66
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=darkgrey guibg=#3E4452
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey guibg=#3E4452
+
+" always wrap when diffing: https://stackoverflow.com/a/17329864
+autocmd VimEnter * if &diff | execute('windo set wrap') | endif
+
+" filetypes
+autocmd BufRead,BufNewFile COMMIT_EDITMSG* set filetype=gitcommit
+autocmd BufRead,BufNewFile flake.lock      set filetype=json
 
 " " at last: draw everything then be lazy
 " " simple `redraw` does not work well with `noshowmode`
