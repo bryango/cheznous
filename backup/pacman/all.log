@@ -89,7 +89,7 @@ cabextract 1.11-1
 cairo 1.18.0-2
 cairomm 1.14.5-1
 cairomm-1.16 1.18.0-1
-calcmysky-qt6 0.3.2-4
+calcmysky-qt6 0.3.2-5
 cantarell-fonts 1:0.303.1-1
 catatonit 0.2.0-3
 cblas 3.12.0-5
@@ -99,7 +99,7 @@ chromaprint 1.5.1-7
 cifs-utils 7.0-3
 cjson 1.7.18-1
 ckbcomp 1.227-1
-clash-geoip 202406230308-1
+clash-geoip 202406270103-1
 clash-meta 1.18.5-4
 clash-verge 1.6.6-2
 clucene 2.3.3.4-14
@@ -880,6 +880,7 @@ networkmanager-openvpn 1.10.4-1
 nftables 1:1.0.9-3
 nix 2.22.1-1
 nix-busybox 1.35.0-1
+nlopt 2.7.1-10
 nm-connection-editor 1.36.0-1
 noto-fonts 1:24.6.1-1
 noto-fonts-emoji 1:2.042-1
@@ -931,7 +932,7 @@ pahole 1:1.26-2
 pam 1.6.1-2
 pam-python 1.0.8-3
 pambase 20230918-1
-pandoc-bin 3.2-1
+pandoc-bin 3.2.1-1
 pango 1:1.52.2-1
 pangomm 2.46.4-1
 pangomm-2.48 2.52.0-1
@@ -1103,6 +1104,7 @@ qt6-webchannel 6.7.1-1
 qt6-webengine 6.7.1-1
 qt6ct 0.9-8
 quazip-qt6 1.4-1
+qxlsx-qt6 1.4.8-1
 ragel 6.10-3
 rapidjson 1.1.0-6
 raptor 2.0.16-5
@@ -1148,7 +1150,7 @@ sratom 0.6.16-1
 srt 1.5.3-1
 sshuttle 1.1.2-2
 startup-notification 0.12-8
-stellarium 24.1-2
+stellarium 24.2-2
 stoken 0.92-4
 sudo 1.9.15.p5-1
 suil 0.10.20-1
