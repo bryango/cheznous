@@ -1,0 +1,68 @@
+#!/bin/bash
+# Spin down HDD
+
+PROTECTED=(
+    /home  # no slash at the end
+)
+
+pattern="^($(
+    echo -n "/"  # always protect root
+    for dir in "${PROTECTED[@]}"; do
+        echo -n "|$dir"
+    done
+))"
+
+function show {
+    # shellcheck disable=2001
+    echo "$@" | sed 's/^/  /g'
+}
+
+# Exit sequence
+trap 'echo ""; echo "# Exiting..."; sleep .5; exit' EXIT
+
+# Require: `~/bin/lsblk-more`
+lsblk-more --all
+
+echo    ""
+echo    "# Best to AVOID mounted devices!"
+printf  "# Which to power off? Enter sdx: "
+read -r sdx
+
+protected_list=$(
+    lsblk --list --noheadings --output=MOUNTPOINT,PKNAME \
+        | grep -E "$pattern +"
+)
+echo "# Found protected device:"
+show "$protected_list"
+protected_dev=$(
+    tr -s ' ' <<< "$protected_list" \
+        | cut -d' ' -f2 \
+        | sort | uniq
+)
+
+if grep --quiet "$sdx" <<< "$protected_dev"; then
+    echo "# \`$sdx\` is protected! Aborted."
+else
+    mounted=$(
+        df --output=source \
+            | grep "/dev/$sdx" \
+            | sort | uniq
+    )
+    echo "# Mounted:"
+    show "$mounted"
+    echo "# Attempt to unmount..."
+
+    mapfile -t mounted <<< "$mounted"
+
+    for part in "${mounted[@]}"; do
+        if [[ -n "$part" ]]; then
+            udisksctl unmount -b "$part"
+        fi
+    done
+
+    udisksctl power-off -b "/dev/$sdx" \
+    && exit
+fi
+
+echo "# Ctrl-C to exit..."
+sleep infinity

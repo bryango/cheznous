@@ -232,7 +232,9 @@ alias-wrap stat '-c " | %a | %A | %N" *' 'stat-ls'
 alias-wrap xxd "-p /sys/firmware/efi/efivars/KBDBacklitLvl*" 'xxd-kbdbacklight'
 alias-wrap vlc "--no-one-instance $disown_detach"
 # alias-wrap pkill ".exe; pkill wineserver.real; pkill wineserver; true" 'pkill-wine'
-alias pkill-wine="systemctl --user kill 'app-gnome-wine*.scope'"
+## update: really KILL wine
+# shellcheck disable=2139
+alias pkill-wine="$(echo "systemctl --user "{,--signal=KILL}" kill 'app-gnome-wine*.scope'; ")"
 
 
 # pacman alias
