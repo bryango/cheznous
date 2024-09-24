@@ -1,0 +1,8 @@
+[user]
+
+[ui]
+default-command = ["log", "--reversed"]
+graph.style = "square"
+
+[templates]
+log = "builtin_log_comfortable"
